@@ -35,9 +35,11 @@ class FixtureLibrary(libraryDirectory: String) {
         File("$libraryDir/extracted").walk().forEach {
             val xml = File(it.path + "/description.xml")
             if(xml.exists()) {
-                parseXmlFile(xml, models)
+                parseXmlFile(xml, manufacturers, models)
             }
         }
+
+        println(models.size)
     }
 
     private fun parseFile(file : File) {
@@ -54,9 +56,23 @@ class FixtureLibrary(libraryDirectory: String) {
         val fTypeTag = doc.getElementsByTagName("FixtureType")
         if(fTypeTag.length>0) {
             val manufacturer = fTypeTag.item(0).attributes.getNamedItem("Manufacturer").nodeValue
-            //val model = fTypeTag.item(0).attributes.getNamedItem("Name").nodeValue
-            manufacturers.add(Manufacturer(manufacturer))
-            //models.add(Model(model))
+            val modelName = fTypeTag.item(0).attributes.getNamedItem("Name").nodeValue
+            val modelDescription = fTypeTag.item(0).attributes.getNamedItem("Description").nodeValue
+            val modelThumbnail = fTypeTag.item(0).attributes.getNamedItem("Thumbnail").nodeValue
+            val modes = ArrayList<Mode>()
+
+            val modesXML = doc.getElementsByTagName("DMXMode")
+
+            for(m in 0 until modesXML.length) {
+                modes.add(Mode(modesXML.item(m).attributes.getNamedItem("Name").nodeValue))
+            }
+
+            if(!manufacturers.contains(Manufacturer((manufacturer))))
+            {
+                manufacturers.add(Manufacturer(manufacturer))
+            }
+
+            models.add(Model(modelName, manufacturer, modelDescription, modelThumbnail, modes))
         }
     }
 }
