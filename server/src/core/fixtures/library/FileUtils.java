@@ -41,11 +41,14 @@ public class FileUtils {
                     Path uncompressedFilePath = fileSystem.getPath(uncompressedFileName);
                     Files.createFile(uncompressedFilePath);
                     FileOutputStream fileOutput = new FileOutputStream(uncompressedFileName);
-                    while (bis.available() > 0)
-                    {
-                        fileOutput.write(bis.read());
+
+                    byte[] buf = new byte[4096];
+                    int r;
+                    while ((r = is.read(buf)) != -1) {
+                        fileOutput.write(buf, 0, r);
                     }
                     fileOutput.close();
+                    is.close();
                 }
             }
         }
@@ -66,8 +69,6 @@ public class FileUtils {
                 }
             }
         }
-
-        System.out.println("removing file or directory : " + dir.getName());
 
         return dir.delete();
     }
