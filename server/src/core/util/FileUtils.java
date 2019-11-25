@@ -1,10 +1,7 @@
-package core.fixtures.library;
+package core.util;
 
 import java.io.*;
-import java.nio.file.FileSystem;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
+import java.nio.file.*;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -14,6 +11,7 @@ public class FileUtils {
 
     public static void unzip(String zipFile, String destDir) {
         //Open the file
+
         try(ZipFile file = new ZipFile(zipFile))
         {
             FileSystem fileSystem = FileSystems.getDefault();
@@ -27,6 +25,7 @@ public class FileUtils {
             while (entries.hasMoreElements())
             {
                 ZipEntry entry = entries.nextElement();
+
                 //If directory then create a new directory in uncompressed folder
                 if (entry.isDirectory())
                 {
@@ -35,6 +34,18 @@ public class FileUtils {
                 //Else create the file
                 else
                 {
+                    /*First check if the directory is already existing
+                    * (Sometimes files in ZIP are listed before their parent directories are listed and created)
+                    */
+                    if(entry.getName().contains("/"))
+                    {
+                        File parentFolder = new File(destDir + "/" + entry.getName().substring(0, entry.getName().lastIndexOf("/")));
+                        if(!parentFolder.exists())
+                        {
+                            parentFolder.mkdirs();
+                        }
+                    }
+
                     InputStream is = file.getInputStream(entry);
                     BufferedInputStream bis = new BufferedInputStream(is);
                     String uncompressedFileName = destDir + "/" + entry.getName();
