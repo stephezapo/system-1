@@ -1,6 +1,6 @@
 package core.fixtures.library
 
-import core.util.FileUtils
+import util.FileUtils
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -9,6 +9,8 @@ import javax.xml.parsers.DocumentBuilderFactory
 class FixtureLibrary(libraryDirectory: String) {
 
     var libraryDir = libraryDirectory
+    var manufacturers = ArrayList<Manufacturer>()
+    var models = ArrayList<Model>()
 
     fun createLibrary() {
 
@@ -22,6 +24,9 @@ class FixtureLibrary(libraryDirectory: String) {
         val path = Paths.get(exportDir);
         Files.createDirectory(path);
 
+        manufacturers.clear()
+        models.clear()
+
         //Iterate through all files in the library directory
         File("$libraryDir/gdtf").walk().forEach {
             if(it.name.endsWith(".gdtf", true)) {
@@ -30,16 +35,12 @@ class FixtureLibrary(libraryDirectory: String) {
         }
 
         //Iterate through extracted files and find manufacturer and model details in the respective description XML
-        val manufacturers = ArrayList<Manufacturer>()
-        val models = ArrayList<Model>()
         File("$libraryDir/extracted").walk().forEach {
             val xml = File(it.path + "/description.xml")
             if(xml.exists()) {
-                parseXmlFile(xml, manufacturers, models)
+                parseXmlFile(xml)
             }
         }
-
-        println(models.size)
     }
 
     private fun parseFile(file : File) {
@@ -48,7 +49,7 @@ class FixtureLibrary(libraryDirectory: String) {
         FileUtils.unzip(file.absolutePath, "$libraryDir/extracted/${file.nameWithoutExtension}")
     }
 
-    private fun parseXmlFile(file : File, manufacturers: ArrayList<Manufacturer>, models: ArrayList<Model>) {
+    private fun parseXmlFile(file : File) {
         val dbFactory = DocumentBuilderFactory.newInstance()
         val dBuilder = dbFactory.newDocumentBuilder()
         val doc = dBuilder.parse(file)
