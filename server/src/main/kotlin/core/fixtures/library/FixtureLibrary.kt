@@ -44,7 +44,7 @@ class FixtureLibrary(libraryDirectory: String) {
     }
 
     private fun parseFile(file : File) {
-        println("Parsing file ${file.name}")
+        //println("Parsing file ${file.name}")
 
         FileUtils.unzip(file.absolutePath, "$libraryDir/extracted/${file.nameWithoutExtension}")
     }
