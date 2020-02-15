@@ -1,0 +1,33 @@
+{
+  "name": "lumosmaxima-client",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://127.0.0.1:3000/",
+  "devDependencies": {
+    "enzyme": "2.4.1",
+    "react-addons-test-utils": "15.4.0",
+    "react-scripts": "0.8.5"
+  },
+  "dependencies": {
+    "babel-plugin-transform-class-properties": "6.22.0",
+    "bootstrap": "^4.3.1",
+    "chart.js": "^2.8.0",
+    "classnames": "^2.2.6",
+    "primeflex": "^1.0.0-rc.1",
+    "primeicons": "^1.0.0",
+    "primereact": "^3.3.3",
+    "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.8",
+    "react-dom": "16.8.6",
+    "react-router-dom": "^5.0.0",
+    "semantic-ui": "^2.4.2",
+    "three": "^0.103.0",
+    "three-full": "^17.1.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
