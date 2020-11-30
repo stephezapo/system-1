@@ -1,7 +1,7 @@
-package org.zapo.org.zapo.system1.core
+package org.zapo.system1.core
 
 
-import org.zapo.org.zapo.system1.fixture.FixtureLibrary
+import org.zapo.system1.fixture.FixtureLibrary
 import org.zapo.system1.api.APIManager
 import org.zapo.system1.api.APIServer
 

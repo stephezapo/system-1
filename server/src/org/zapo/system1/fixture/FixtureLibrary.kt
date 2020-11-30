@@ -1,4 +1,4 @@
-package org.zapo.org.zapo.system1.fixture
+package org.zapo.system1.fixture
 
 
 import org.zapo.system1.util.FileUtils

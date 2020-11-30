@@ -1,4 +1,4 @@
-package org.zapo.org.zapo.system1.fixture
+package org.zapo.system1.fixture
 
 data class Manufacturer(val manufacturer: String)
 data class Model(val name: String, val manufacturer: String, val description: String, val thumbnail: String, val modes : ArrayList<Mode>)
