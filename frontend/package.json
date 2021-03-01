@@ -21,7 +21,7 @@
     "react-dom": "16.8.6",
     "react-router-dom": "^5.0.0",
     "semantic-ui": "^2.4.2",
-    "three": "^0.103.0",
+    "three": "^0.125.0",
     "three-full": "^17.1.0"
   },
   "scripts": {
